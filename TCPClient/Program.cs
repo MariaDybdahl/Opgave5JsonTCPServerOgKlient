@@ -28,9 +28,11 @@ try
         //Første bedesked som klinet modtager fra server.
         var firstMessage = reader.ReadLine();
         Console.WriteLine();
+
         //Console.WriterLine så de kan læse den på konsolen
         Console.WriteLine("Received instruction message from server:" + firstMessage);
         Console.WriteLine();
+
         //Console.ReadLine() så de kan skrive et input fra den bedsked de har modtaget.
         var input = Console.ReadLine();
 
@@ -49,6 +51,7 @@ try
             string method = requstMessageParts[0];
             string tal1 = requstMessageParts[1];
             string tal2 = requstMessageParts[2];
+
             //anonymt objekt hvor jeg efter opret JSON-format
             var request = new
             {
@@ -56,20 +59,24 @@ try
                 Tal1 = tal1,
                 Tal2 = tal2
             };
+
             //opretter json-format
             var inputJson = JsonSerializer.Serialize(request);
+            
             //udskriver det til server
             writer.WriteLine(inputJson);
             Console.WriteLine();
+            
             //Læser svaret fra server
             var secMessage = reader.ReadLine();
+
             //udskriver det i konsole.
             Console.WriteLine("Received result from the server: " + secMessage);
 
 
         }
-        //hvis ikke den er 3 elementer i arrayet eller er flere end 3 eller færre, vil jeg sætte dem til ingenting
-        //for så vil server send en error bedsked tilbage.
+        //hvis ikke den er 3 elementer i arrayet (er flere end 3 eller færre), vil jeg sætte dem til ingenting
+        //for så vil server send en error bedsked tilbage med at format er forkert.
         else
         {
             //anonymt objekt hvor jeg efter opret JSON-format med tom felt.
@@ -81,10 +88,13 @@ try
             };
             //laver det om til Json-format
             var inputJson = JsonSerializer.Serialize(request);
+
             //udskriver til server.
             writer.WriteLine(inputJson);
+
             //læser bedsked fra server
             var secMessage = reader.ReadLine();
+
             //udskriver bedsked i konsolen.
             Console.WriteLine(secMessage);
 
